@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 #transfers file from client to server
-if $# != 3
+if $# < 3
 then
     echo "Usage: 0-transfer_file PATH_TO_FILE IP USERNAME PATH_TO_SSH_KEY"
 else
-    ssh $3@$2 -i $4 "cp $1 ~"
+    scp $1 -i $4 $3@$2:~/
+fi
