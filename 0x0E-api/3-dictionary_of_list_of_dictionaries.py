@@ -18,13 +18,13 @@ if __name__ == "__main__":
     for user_id, username in user_dict.items():
         task_list = []
         for todo in todo_list:
-            task_dict = {}
-            task_dict['username'] = username
-            task_dict['task'] = todo.get('title')
-            task_dict['completed'] = todo.get('completed')
-            task_list.append(task_dict)
-        data = {user_id: task_list}
+            if todo.get('userId') == user_id:
+                task_dict = {}
+                task_dict['username'] = username
+                task_dict['task'] = todo.get('title')
+                task_dict['completed'] = todo.get('completed')
+                task_list.append(task_dict)
+        data[user_id] = task_list
 
     with open('todo_all_employees.json', 'w', encoding='UTF8') as f:
         json.dump(data, f)
-    
