@@ -1,0 +1,24 @@
+#!/usr/bin/python3
+"""exports todo list progress to USER_ID.csv"""
+
+if __name__ == "__main__":
+    import csv
+    import json
+    import requests
+    from sys import argv
+
+    todo_list = requests.get('https://jsonplaceholder.typicode.com/todos')\
+        .json()
+    username = requests.get('https://jsonplaceholder.typicode.com/users/{}'
+                            .format(argv[1])).json().get('username')
+    task_dict = {}
+    for todo in todo_list:
+        if todo.get('userId') == int(argv[1]):
+            task_dict[todo.get('title')] = todo.get('completed')
+
+    with open('{}.json'.format(argv[1]), 'w', encoding='UTF8') as f:
+        data = {'{}'.format(argv[1]): [{'task': '{}'.format(title),
+                                        'completed': '{}'.format(completed),
+                                        'username': username}
+                                       for title, completed in task_dict.items()]}
+        json.dump(data, f)
