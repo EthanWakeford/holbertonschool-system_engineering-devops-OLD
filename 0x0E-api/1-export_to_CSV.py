@@ -9,7 +9,7 @@ if __name__ == "__main__":
     todo_list = requests.get('https://jsonplaceholder.typicode.com/todos')\
         .json()
     username = requests.get('https://jsonplaceholder.typicode.com/users/{}'
-                        .format(argv[1])).json().get('username')
+                            .format(argv[1])).json().get('username')
     task_dict = {}
     for todo in todo_list:
         if todo.get('userId') == int(argv[1]):
