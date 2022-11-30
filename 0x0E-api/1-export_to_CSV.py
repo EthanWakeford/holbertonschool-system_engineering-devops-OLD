@@ -17,5 +17,5 @@ if __name__ == "__main__":
 
     with open('{}.csv'.format(argv[1]), 'w', encoding='UTF8') as f:
         for task_title, completed_status in task_dict.items():
-            writer = csv.writer(f)
+            writer = csv.writer(f,  quoting=csv.QUOTE_ALL)
             writer.writerow([argv[1], name, completed_status, task_title])
