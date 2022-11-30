@@ -15,9 +15,7 @@ if __name__ == "__main__":
         if todo.get('userId') == int(argv[1]):
             task_dict[todo.get('title')] = todo.get('completed')
 
-    csv_list = [argv[1], name, task_dict]
-
-    with open('USER_ID.csv', 'w', encoding='UTF8') as f:
+    with open('{}.csv'.format(argv[1]), 'w', encoding='UTF8') as f:
         for task_title, completed_status in task_dict.items():
             writer = csv.writer(f)
             writer.writerow([argv[1], name, completed_status, task_title])
