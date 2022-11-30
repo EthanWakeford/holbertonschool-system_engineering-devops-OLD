@@ -11,14 +11,15 @@ if __name__ == "__main__":
         .json()
     username = requests.get('https://jsonplaceholder.typicode.com/users/{}'
                             .format(argv[1])).json().get('username')
-    task_dict = {}
+    task_list = []
     for todo in todo_list:
-        if todo.get('userId') == int(argv[1]):
-            task_dict[todo.get('title')] = todo.get('completed')
+        task_dict = {}
+        task_dict['task'] = todo.get('title')
+        task_dict['completed'] = todo.get('completed')
+        task_dict['username'] = username
+        task_list.append(task_dict)
+
+    data = {'{}'.format(argv[1]): task_list}
 
     with open('{}.json'.format(argv[1]), 'w', encoding='UTF8') as f:
-        data = {'{}'.format(argv[1]): [{'task': '{}'.format(title),
-                                        'completed': '{}'.format(completed),
-                                        'username': username}
-                                       for title, completed in task_dict.items()]}
         json.dump(data, f)
